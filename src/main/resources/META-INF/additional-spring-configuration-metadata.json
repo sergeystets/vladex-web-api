@@ -1,0 +1,20 @@
+{
+  "properties": [
+    {
+      "name": "app.security.otp.sender",
+      "type": "java.lang.String",
+      "description": "Configure OTP (one time password) sender implementation by selecting one of: [turbosms]."
+    }
+  ],
+  "hints": [
+    {
+      "name": "app.security.otp.sender",
+      "values": [
+        {
+          "value": "turbosms",
+          "description": "turbosms (http://turbosms.ua)."
+        }
+      ]
+    }
+  ]
+}
