@@ -41,6 +41,7 @@ public class LoginService {
 
     // delete old OTP codes (if any)
     pendingVerificationRepository.deleteByPhoneNumber(phoneNumber);
+    pendingVerificationRepository.flush();
 
     // generate new OTP code
     final String otp = otpGenerator.generate();
