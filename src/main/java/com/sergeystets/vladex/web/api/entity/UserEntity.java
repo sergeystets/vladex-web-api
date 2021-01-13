@@ -28,7 +28,4 @@ public class UserEntity {
   @Column(name = "name", nullable = false, columnDefinition = "varchar(100)")
   private String name;
 
-  @Column(name = "surname", columnDefinition = "varchar(100)")
-  private String surname;
-
 }

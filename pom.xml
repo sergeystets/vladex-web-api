@@ -42,34 +42,12 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-    </dependency>
-
-    <!--  todo: spring-security-oauth2 and spring-security-jwt should be removed from a project -->
-    <!--  todo: since the major part of the functionality there is deprecated -->
-    <!--  todo: those dependencies are now needed for auth server to function correctly -->
-    <!--  todo: Spring community decided to deprecate embedded auth server as well as updated some of the well-known flows -->
-    <!--  todo: more details could be found here: https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide -->
-    <dependency>
-      <groupId>org.springframework.security.oauth</groupId>
-      <artifactId>spring-security-oauth2</artifactId>
-      <version>2.3.4.RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-jwt</artifactId>
-      <version>1.1.1.RELEASE</version>
     </dependency>
 
     <!-- Swagger -->
