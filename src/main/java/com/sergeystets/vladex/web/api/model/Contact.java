@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 public class Contact {
 
   private long id;
-  private String name;
+  private String username;
   private boolean online;
+  private String avatar;
 }
