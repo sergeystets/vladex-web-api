@@ -7,7 +7,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +22,14 @@ public class ChatsController {
 
   @GetMapping
   public List<Chat> getChats(Authentication authentication) {
-    final String phone = String.valueOf(((JwtAuthenticationToken) authentication)
-        .getToken().getClaims().get("user_name"));
+    final String phone = authentication.getName();
     log.info("Get available chats for {}", phone);
     return chatsService.getChats(42);
   }
 
   @GetMapping("/{id}")
   public List<ChatMessage> loadChat(Authentication authentication, @PathVariable long id) {
-    final String phone = String.valueOf(((JwtAuthenticationToken) authentication)
-        .getToken().getClaims().get("user_name"));
+    final String phone = authentication.getName();
     log.info("Load messages for chat with id = {} for {}", id, phone);
     return chatsService.loadChat(id);
   }
