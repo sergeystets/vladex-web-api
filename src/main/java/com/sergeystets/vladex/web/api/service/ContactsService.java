@@ -12,7 +12,7 @@ public class ContactsService {
     return ImmutableList.of(
         new Contact().setId(1).setUsername("Pavle Burykh").setOnline(true)
             .setAvatar("https://randomuser.me/api/portraits/men/79.jpg"),
-        new Contact().setId(2).setUsername("Valeriia Stets").setOnline(true)
+        new Contact().setId(2).setUsername("Valeriia Stets").setOnline(false)
             .setAvatar("https://randomuser.me/api/portraits/women/57.jpg"),
         new Contact().setId(3).setUsername("Andrii Chypur").setOnline(false)
             .setAvatar("https://randomuser.me/api/portraits/men/56.jpg")
