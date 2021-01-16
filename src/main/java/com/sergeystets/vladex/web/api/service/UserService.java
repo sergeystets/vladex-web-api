@@ -20,4 +20,12 @@ public class UserService {
         .setUsername(user.getName())
         .setId(user.getId());
   }
+
+  public UserInfo findUserById(long userId) {
+    final UserEntity user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+    return new UserInfo()
+        .setPhoneNumber(user.getPhoneNumber())
+        .setUsername(user.getName())
+        .setId(user.getId());
+  }
 }

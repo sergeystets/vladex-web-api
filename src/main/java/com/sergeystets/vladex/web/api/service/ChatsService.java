@@ -34,29 +34,29 @@ public class ChatsService {
         0L,
         ImmutableList.of(
             new ChatMessage(1, "Hello :)",
-                new Contact().setId(1).setUsername("Pavel Burykh")),
+                new Contact().setId(1).setUsername("Pavel Burykh"), 0),
             new ChatMessage(2, "How are you?",
-                new Contact().setId(1).setUsername("Pavel Burykh")),
+                new Contact().setId(1).setUsername("Pavel Burykh"), 0),
             new ChatMessage(3, "I'm fine, thank you!",
-                new Contact().setId(42).setUsername("Sergii Stets"))
+                new Contact().setId(42).setUsername("Sergii Stets"), 0)
         ),
         1L,
         ImmutableList.of(
             new ChatMessage(1, "Hi",
-                new Contact().setId(2).setUsername("Valeriia Stets")),
+                new Contact().setId(2).setUsername("Valeriia Stets"), 1),
             new ChatMessage(2, ":)",
-                new Contact().setId(2).setUsername("Valeriia Stets")),
+                new Contact().setId(2).setUsername("Valeriia Stets"), 1),
             new ChatMessage(3, "Hello",
-                new Contact().setId(42).setUsername("Sergii Stets"))),
+                new Contact().setId(42).setUsername("Sergii Stets"), 1)),
 
         2L,
         ImmutableList.of(
             new ChatMessage(1, "Hi, this is cool messenger",
-                new Contact().setId(3).setUsername("Andrii Chupyr")),
+                new Contact().setId(3).setUsername("Andrii Chupyr"), 2),
             new ChatMessage(2, "Thank you",
-                new Contact().setId(42).setUsername("Sergii Stets")),
+                new Contact().setId(42).setUsername("Sergii Stets"), 2),
             new ChatMessage(3, ":)",
-                new Contact().setId(42).setUsername("Sergii Stets"))
+                new Contact().setId(42).setUsername("Sergii Stets"), 2)
         ));
 
     return chats.getOrDefault(id, emptyList());
