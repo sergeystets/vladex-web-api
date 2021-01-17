@@ -7,7 +7,7 @@ import com.sergeystets.vladex.web.api.model.ws.SendChatMessageRequest;
 import com.sergeystets.vladex.web.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Controller;
@@ -18,13 +18,15 @@ public class MessageController {
   @Autowired
   private UserService userService;
 
+  @Autowired
+  private SimpMessagingTemplate messagingTemplate;
+
   @MessageMapping("/ws")
-  @SendTo("/topic/chat")
-  public ChatMessage sendMessage(Authentication authentication, SendChatMessageRequest message) {
+  public void sendMessage(Authentication authentication, SendChatMessageRequest message) {
     final Jwt token = ((Jwt) authentication.getPrincipal());
     final long userId = (Long) token.getClaims().get("user_id");
     final UserInfo user = userService.findUserById(userId);
-    return new ChatMessage()
+    final ChatMessage chatMessage = new ChatMessage()
         .setChatId(message.getChatId())
         .setContent(message.getContent())
         .setId(1)
@@ -32,5 +34,7 @@ public class MessageController {
             .setId(userId)
             .setUsername(user.getUsername())
         );
+
+    messagingTemplate.convertAndSendToUser(user.getPhoneNumber(), "/queue/chat", chatMessage);
   }
 }
