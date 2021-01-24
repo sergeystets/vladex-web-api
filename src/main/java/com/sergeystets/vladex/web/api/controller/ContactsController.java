@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,8 @@ public class ContactsController {
   public List<Contact> getContacts(Authentication authentication) {
     final String phone = authentication.getName();
     log.info("Get contacts for {}", phone);
-    return contactsService.getContacts(42);
+    final Jwt token = ((Jwt) authentication.getPrincipal());
+    final long userId = (Long) token.getClaims().get("user_id");
+    return contactsService.getContacts(userId);
   }
 }

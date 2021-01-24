@@ -15,4 +15,5 @@ public class ChatMessage {
   private String content;
   private Contact user;
   private long chatId;
+  private boolean seen;
 }

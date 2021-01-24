@@ -15,48 +15,60 @@ import org.springframework.stereotype.Service;
 public class ChatsService {
 
   public List<Chat> getChats(long userId) {
-    return ImmutableList.of(
-        new Chat(0L, "Pavel Burykh"),
-        new Chat(1L, "Valeriia Stets"),
-        new Chat(2L, "Andrii Chupyr"),
-        new Chat(3L, "Chat #3"),
-        new Chat(4L, "Chat #4"),
-        new Chat(5L, "Chat #5"),
-        new Chat(6L, "Chat #6"),
-        new Chat(7L, "Chat #7"),
-        new Chat(8L, "Chat #8"),
-        new Chat(9L, "Chat #9")
-    );
+    final Map<Long, List<Chat>> chats = ImmutableMap.of(
+        42L,
+        ImmutableList.of(
+            new Chat(0L, "Pavel Burykh", 0L, true),
+            new Chat(1L, "Valeriia Stets", 1L, false),
+            new Chat(2L, "Andrii Chupyr", 2L, false)
+        ), 0L,
+        ImmutableList.of(
+            new Chat(0L, "Sergii Stets", 42L, true),
+            new Chat(1L, "Valeriia Stets", 1L, false),
+            new Chat(2L, "Andrii Chupyr", 2L, false)
+        ), 1L,
+        ImmutableList.of(
+            new Chat(0L, "Sergii Stets", 42L, true),
+            new Chat(1L, "Pavel Burykh", 0L, true),
+            new Chat(2L, "Andrii Chupyr", 2L, false)
+        ), 2L,
+        ImmutableList.of(
+            new Chat(0L, "Sergii Stets", 42L, true),
+            new Chat(1L, "Pavel Burykh", 0L, true),
+            new Chat(2L, "Valerii Stets", 1L, false)
+        ));
+
+    return chats.getOrDefault(userId, emptyList());
   }
 
   public List<ChatMessage> loadChat(long id) {
     final Map<Long, List<ChatMessage>> chats = ImmutableMap.of(
         0L,
         ImmutableList.of(
-            new ChatMessage(1, "Hello :)",
-                new Contact().setId(1).setUsername("Pavel Burykh"), 0),
-            new ChatMessage(2, "How are you?",
-                new Contact().setId(1).setUsername("Pavel Burykh"), 0),
-            new ChatMessage(3, "I'm fine, thank you!",
-                new Contact().setId(42).setUsername("Sergii Stets"), 0)
+            new ChatMessage(0, "Hello :)",
+                new Contact().setId(0).setUsername("Pavel Burykh"), 0, true),
+            new ChatMessage(1, "How are you?",
+                new Contact().setId(0).setUsername("Pavel Burykh"), 0, true),
+            new ChatMessage(2, "I'm fine, thank you!",
+                new Contact().setId(42).setUsername("Sergii Stets"), 0, true)
         ),
         1L,
         ImmutableList.of(
-            new ChatMessage(1, "Hi",
-                new Contact().setId(2).setUsername("Valeriia Stets"), 1),
-            new ChatMessage(2, ":)",
-                new Contact().setId(2).setUsername("Valeriia Stets"), 1),
-            new ChatMessage(3, "Hello",
-                new Contact().setId(42).setUsername("Sergii Stets"), 1)),
+            new ChatMessage(0, "Hi",
+                new Contact().setId(1).setUsername("Valeriia Stets"), 1, true),
+            new ChatMessage(1, ":)",
+                new Contact().setId(1).setUsername("Valeriia Stets"), 1, true),
+            new ChatMessage(2, "Hello",
+                new Contact().setId(42).setUsername("Sergii Stets"), 1, true)),
 
         2L,
         ImmutableList.of(
-            new ChatMessage(1, "Hi, this is cool messenger",
-                new Contact().setId(3).setUsername("Andrii Chupyr"), 2),
-            new ChatMessage(2, "Thank you",
-                new Contact().setId(42).setUsername("Sergii Stets"), 2),
-            new ChatMessage(3, ":)",
-                new Contact().setId(42).setUsername("Sergii Stets"), 2)
+            new ChatMessage(0, "Hi, this is cool messenger",
+                new Contact().setId(2).setUsername("Andrii Chupyr"), 2, true),
+            new ChatMessage(1, "Thank you",
+                new Contact().setId(42).setUsername("Sergii Stets"), 2, true),
+            new ChatMessage(2, ":)",
+                new Contact().setId(42).setUsername("Sergii Stets"), 2, true)
         ));
 
     return chats.getOrDefault(id, emptyList());

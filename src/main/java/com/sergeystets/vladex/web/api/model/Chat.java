@@ -12,4 +12,7 @@ public class Chat {
   private Long id;
   private String name;
 
+  private Long contactId;
+  private boolean online;
+
 }
