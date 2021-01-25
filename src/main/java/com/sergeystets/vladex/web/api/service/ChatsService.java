@@ -18,23 +18,23 @@ public class ChatsService {
     final Map<Long, List<Chat>> chats = ImmutableMap.of(
         42L, // Sergii Stets
         ImmutableList.of(
-            new Chat(0L, "Pavel Burykh", 0L, true),
+            new Chat(0L, "Pavel Burykh", 0L, false),
             new Chat(1L, "Valeriia Stets", 1L, false),
             new Chat(2L, "Andrii Chupyr", 2L, false)
         ), 0L, // Pavel Burykh
         ImmutableList.of(
-            new Chat(0L, "Sergii Stets", 42L, true),
+            new Chat(0L, "Sergii Stets", 42L, false),
             new Chat(3L, "Valeriia Stets", 1L, false),
             new Chat(4L, "Andrii Chupyr", 2L, false)
         ), 1L, // Valeriia Stets
         ImmutableList.of(
-            new Chat(1L, "Sergii Stets", 42L, true),
-            new Chat(3L, "Pavel Burykh", 0L, true),
+            new Chat(1L, "Sergii Stets", 42L, false),
+            new Chat(3L, "Pavel Burykh", 0L, false),
             new Chat(5L, "Andrii Chupyr", 2L, false)
         ), 2L, // Andrii Chupyr
         ImmutableList.of(
-            new Chat(2L, "Sergii Stets", 42L, true),
-            new Chat(4L, "Pavel Burykh", 0L, true),
+            new Chat(2L, "Sergii Stets", 42L, false),
+            new Chat(4L, "Pavel Burykh", 0L, false),
             new Chat(5L, "Valerii Stets", 1L, false)
         ));
 
