@@ -1,47 +1,43 @@
 package com.sergeystets.vladex.web.api.service;
 
 import static java.util.Collections.emptyList;
+import static java.util.stream.Collectors.toList;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.sergeystets.vladex.web.api.mapper.ChatMapper;
 import com.sergeystets.vladex.web.api.model.Chat;
 import com.sergeystets.vladex.web.api.model.ChatMessage;
 import com.sergeystets.vladex.web.api.model.Contact;
+import com.sergeystets.vladex.web.api.repository.ChatRepository;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ChatsService {
+@RequiredArgsConstructor
+public class ChatService {
 
+  private final ChatMapper chatMapper;
+  private final ChatRepository chatRepository;
+
+  @Transactional(readOnly = true)
   public List<Chat> getChats(long userId) {
-    final Map<Long, List<Chat>> chats = ImmutableMap.of(
-        42L, // Sergii Stets
-        ImmutableList.of(
-            new Chat(0L, "Pavel Burykh", 0L, false),
-            new Chat(1L, "Valeriia Stets", 1L, false),
-            new Chat(2L, "Andrii Chupyr", 2L, false)
-        ), 0L, // Pavel Burykh
-        ImmutableList.of(
-            new Chat(0L, "Sergii Stets", 42L, false),
-            new Chat(3L, "Valeriia Stets", 1L, false),
-            new Chat(4L, "Andrii Chupyr", 2L, false)
-        ), 1L, // Valeriia Stets
-        ImmutableList.of(
-            new Chat(1L, "Sergii Stets", 42L, false),
-            new Chat(3L, "Pavel Burykh", 0L, false),
-            new Chat(5L, "Andrii Chupyr", 2L, false)
-        ), 2L, // Andrii Chupyr
-        ImmutableList.of(
-            new Chat(2L, "Sergii Stets", 42L, false),
-            new Chat(4L, "Pavel Burykh", 0L, false),
-            new Chat(5L, "Valerii Stets", 1L, false)
-        ));
-
-    return chats.getOrDefault(userId, emptyList());
+    return chatRepository.findAllByUserId(userId).map(chatMapper::toChatDto).collect(toList());
   }
 
-  public List<ChatMessage> loadChat(long id) {
+  @Transactional(readOnly = true)
+  public Chat getChat(long userId, long chatId) {
+    return getChats(userId)
+        .stream()
+        .filter(chat -> chat.getId() == chatId).findFirst()
+        .orElseThrow(RuntimeException::new);
+  }
+
+  @Transactional(readOnly = true)
+  public List<ChatMessage> loadChatMessages(long chatId) {
     final Map<Long, List<ChatMessage>> chats = ImmutableMap.<Long, List<ChatMessage>>builder()
         .put(
             0L, // Sergii Stets vs Pavel Burykh
@@ -104,6 +100,6 @@ public class ChatsService {
                     new Contact().setId(2).setUsername("Andrii Chupyr"), 5, true)))
         .build();
 
-    return chats.getOrDefault(id, emptyList());
+    return chats.getOrDefault(chatId, emptyList());
   }
 }

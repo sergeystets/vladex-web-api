@@ -28,4 +28,10 @@ public class UserEntity {
   @Column(name = "name", nullable = false, columnDefinition = "varchar(100)")
   private String name;
 
+  @Column(name = "online", nullable = false, columnDefinition = "boolean")
+  private boolean online;
+
+  @Column(name = "avatar", columnDefinition = "longtext")
+  private String avatar;
+
 }

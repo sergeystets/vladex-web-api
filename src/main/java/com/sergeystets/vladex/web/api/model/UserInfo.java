@@ -10,5 +10,4 @@ public class UserInfo {
   private Long id;
   private String username;
   private String phoneNumber;
-  private long chatIdToLoad;
 }

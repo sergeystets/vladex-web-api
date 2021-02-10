@@ -9,6 +9,7 @@ public class Contact {
 
   private long id;
   private String username;
+  private String phoneNumber;
   private boolean online;
   private String avatar;
 }

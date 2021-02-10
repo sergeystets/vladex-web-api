@@ -1,53 +1,24 @@
 package com.sergeystets.vladex.web.api.service;
 
-import static java.util.Collections.emptyList;
+import static java.util.stream.Collectors.toList;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import com.sergeystets.vladex.web.api.mapper.UserMapper;
 import com.sergeystets.vladex.web.api.model.Contact;
+import com.sergeystets.vladex.web.api.repository.UserRepository;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class ContactsService {
 
+  private final UserMapper userMapper;
+  private final UserRepository userRepository;
+
+  @Transactional(readOnly = true)
   public List<Contact> getContacts(long userId) {
-    final ImmutableMap<Long, List<Contact>> contacts = ImmutableMap.of(
-        42L,
-        ImmutableList.of(
-            new Contact().setId(0).setUsername("Pavel Burykh").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/79.jpg"),
-            new Contact().setId(1).setUsername("Valeriia Stets").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/women/57.jpg"),
-            new Contact().setId(2).setUsername("Andrii Chypur").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/56.jpg")),
-
-        0L,
-        ImmutableList.of(
-            new Contact().setId(42).setUsername("Sergii Stets").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/80.jpg"),
-            new Contact().setId(1).setUsername("Valeriia Stets").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/women/57.jpg"),
-            new Contact().setId(2).setUsername("Andrii Chypur").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/56.jpg")),
-        1L,
-        ImmutableList.of(
-            new Contact().setId(42).setUsername("Sergii Stets").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/80.jpg"),
-            new Contact().setId(0).setUsername("Pavel Burykh").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/79.jpg"),
-            new Contact().setId(2).setUsername("Andrii Chypur").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/56.jpg")),
-        2L,
-        ImmutableList.of(
-            new Contact().setId(42).setUsername("Sergii Stets").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/80.jpg"),
-            new Contact().setId(0).setUsername("Pavel Burykh").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/men/79.jpg"),
-            new Contact().setId(2).setUsername("Valeriia Stets").setOnline(false)
-                .setAvatar("https://randomuser.me/api/portraits/women/57.jpg"))
-    );
-
-    return contacts.getOrDefault(userId, emptyList());
+    return userRepository.findAllContacts(userId).map(userMapper::toContact).collect(toList());
   }
 }
