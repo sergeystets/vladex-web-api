@@ -16,4 +16,5 @@ public class ChatMessage {
   private Contact user;
   private long chatId;
   private boolean seen;
+  private long timestamp;
 }

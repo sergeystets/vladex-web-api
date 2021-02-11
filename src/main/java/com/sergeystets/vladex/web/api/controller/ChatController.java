@@ -30,7 +30,7 @@ public class ChatController {
     return chatService.getChats(userId);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/{id}/messages")
   public List<ChatMessage> loadChatMessages(Authentication authentication, @PathVariable long id) {
     final String phone = authentication.getName();
     log.info("Load messages for chat with id = {} for {}", id, phone);

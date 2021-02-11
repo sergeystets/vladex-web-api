@@ -75,3 +75,39 @@ values
     -- Valeriia Stets with Andrii Chupyr
     (5, 1),
     (5, 2);
+
+insert into chat_message (content,
+                          chat_id,
+                          author_id,
+                          seen,
+                          timestamp)
+values
+    -- Sergii Stets vs Pavel Burykh
+    ('Hello', 0, 0, true, 1613035202),
+    ('How are you?', 0, 0, true, 1613035203),
+    ('I''m fine, thank you!', 0, 42, true, 1613035204),
+
+    -- Vererii Stets vs Sergii Stets
+    ('Hi', 1, 1, true, 1613035202),
+    (':)', 1, 1, true, 1613035203),
+    ('Hello', 1, 42, true, 1613035204),
+
+    -- Andrii Chupyr vs Sergii Stets
+    ('Hi, this messenger looks great. Good job!', 2, 2, true, 1613035202),
+    ('Thank you', 2, 2, true, 1613035203),
+    (':)', 2, 42, true, 1613035204),
+
+    -- Valeriia Stets vs Pavel Burykh
+    ('Hi', 3, 1, true, 1613035202),
+    (':)', 3, 0, true, 1613035203),
+    (':)', 3, 1, true, 1613035204),
+
+    -- Pavel Burykh vs Andrii Chupyr
+    ('Hi', 4, 2, true, 1613035202),
+    (':)', 4, 0, true, 1613035203),
+    (':)', 4, 2, true, 1613035204),
+
+    -- Valeriia Stets vs Andrii Chupyr
+    ('Hi', 5, 1, true, 1613035202),
+    (':)', 5, 1, true, 1613035203),
+    (':)', 5, 2, true, 1613035204);

@@ -7,6 +7,7 @@ import com.sergeystets.vladex.web.api.model.UserInfo;
 import com.sergeystets.vladex.web.api.model.ws.SendChatMessageRequest;
 import com.sergeystets.vladex.web.api.service.ChatService;
 import com.sergeystets.vladex.web.api.service.UserService;
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -30,13 +31,16 @@ public class MessageController {
     final Chat chat = chatService.getChat(userId, message.getChatId());
 
     final ChatMessage chatMessage = new ChatMessage()
+        .setSeen(false)
+        .setTimestamp(new Date().getTime())
         .setChatId(message.getChatId())
         .setContent(message.getContent())
-        .setId(1)
         .setUser(new Contact()
             .setId(userId)
             .setUsername(fromUser.getUsername())
         );
+
+    chatService.save(chatMessage);
 
     // broadcast message to all chat members
     for (Contact chatMember : chat.getMembers()) {
